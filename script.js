@@ -1,3 +1,45 @@
+// Redirect to index on page refresh (except for index.html itself)
+(function() {
+  const currentPage = window.location.pathname.split('/').pop();
+  const isRefresh = performance.navigation.type === 1 || 
+                    (performance.getEntriesByType('navigation')[0] && 
+                     performance.getEntriesByType('navigation')[0].type === 'reload');
+  
+  // If it's a refresh and not on index page, redirect to index
+  if (isRefresh && currentPage !== 'index.html' && currentPage !== '') {
+    window.location.href = 'index.html';
+  }
+})();
+
+// Add page enter animation on load
+document.addEventListener('DOMContentLoaded', function() {
+  document.body.classList.add('page-enter');
+});
+
+// Smooth page transitions for links
+document.addEventListener('DOMContentLoaded', function() {
+  const links = document.querySelectorAll('a[href$=".html"]');
+  
+  links.forEach(link => {
+    link.addEventListener('click', function(e) {
+      // Don't prevent default for the moving button
+      if (this.id === 'move-random') return;
+      
+      e.preventDefault();
+      const href = this.getAttribute('href');
+      
+      // Add exit animation
+      document.querySelector('.container').style.animation = 'cardFlipOut 0.5s ease-in forwards';
+      
+      // Navigate after animation
+      setTimeout(() => {
+        window.location.href = href;
+      }, 500);
+    });
+  });
+});
+
+// Button movement functionality
 const btn = document.getElementById("move-random");
 
 if (btn) {
