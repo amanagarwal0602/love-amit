@@ -25,16 +25,9 @@ body {
 
 .gif {
   width: 180px;
+  max-width: 100%;
   height: auto;
   margin-bottom: 15px;
-}
-
-h1 {
-  margin-bottom: 10px;
-}
-
-p {
-  margin-bottom: 20px;
 }
 
 .btn {
