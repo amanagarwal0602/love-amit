@@ -1,13 +1,11 @@
-function moveRandomEl(elm) {
-  elm.style.position = "absolute";
-  elm.style.top = Math.floor(Math.random() * 90 + 5) + "%";
-  elm.style.left = Math.floor(Math.random() * 90 + 5) + "%";
-}
+const btn = document.getElementById("move-random");
 
-const moveRandom = document.querySelector("#move-random");
+if (btn) {
+  btn.addEventListener("mouseover", () => {
+    const x = Math.random() * 300 - 150;
+    const y = Math.random() * 300 - 150;
 
-if (moveRandom) {
-  moveRandom.addEventListener("mouseenter", function (e) {
-    moveRandomEl(e.target);
+    btn.style.position = "absolute";
+    btn.style.transform = `translate(${x}px, ${y}px)`;
   });
 }

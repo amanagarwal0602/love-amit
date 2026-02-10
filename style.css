@@ -7,46 +7,48 @@
 
 body {
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
+  background-color: #f3b6b6;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #d9a6a6;
-  overflow: hidden; /* prevents button from causing scroll */
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
+  background: #fff;
+  padding: 30px;
+  border-radius: 20px;
   text-align: center;
-  align-items: center;
-  gap: 20px;
-  max-width: 500px;
-  margin: 20px;
+  width: 90%;
+  max-width: 400px;
 }
 
-.container .tenor-gif-embed {
-  max-width: 200px;
+.gif {
+  width: 180px;
+  height: auto;
+  margin-bottom: 15px;
 }
 
-.container .btn {
+h1 {
+  margin-bottom: 10px;
+}
+
+p {
+  margin-bottom: 20px;
+}
+
+.btn {
+  position: relative;
   display: flex;
-  gap: 25px;
-  position: relative; /* important for moving button */
+  justify-content: center;
+  gap: 20px;
 }
 
 .btn a {
   text-decoration: none;
-  color: #111;
-  background: #fff;
   padding: 10px 25px;
-  border-radius: 66px;
-  box-shadow: 0.5rem 1rem 3rem hsl(0, 0%, 0%, 0.3);
-  cursor: pointer;
-}
-
-/* 👿 Runaway button */
-#move-random {
-  position: absolute;
-  transition: top 0.25s ease, left 0.25s ease;
+  background: #ff6b6b;
+  color: #fff;
+  border-radius: 25px;
+  font-weight: bold;
 }
