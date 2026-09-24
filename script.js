@@ -1,4 +1,13 @@
-// No redirect on refresh — let users stay on the page they're viewing
+// Redirect to index on page refresh (except for index.html itself)
+(function() {
+  const currentPage = window.location.pathname.split('/').pop();
+  const navEntries = performance.getEntriesByType('navigation');
+  const isRefresh = (navEntries.length > 0 && navEntries[0].type === 'reload');
+
+  if (isRefresh && currentPage !== 'index.html' && currentPage !== '') {
+    window.location.replace('index.html');
+  }
+})();
 
 // Add page enter animation on load
 document.addEventListener('DOMContentLoaded', function() {
