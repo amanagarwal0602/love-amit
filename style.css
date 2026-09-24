@@ -1,41 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap');
+
+/* ==========================================================================
+   Base & Resets
+   ========================================================================== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: sans-serif;
 }
 
 body {
+  font-family: 'Inter', sans-serif;
   width: 100%;
   min-height: 100vh;
-  background: linear-gradient(135deg, #ffc3a0 0%, #ffafbd 50%, #f3b6b6 100%);
+  background: linear-gradient(135deg, #0a0f2c 0%, #1f1b40 30%, #362f59 60%, #56497a 100%);
   background-attachment: fixed;
+  background-size: 300% 300%;
+  color: #4a4a6a;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 15px;
-  overflow: hidden;
+  padding: 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
   position: relative;
+  animation: bg-shift 20s ease infinite;
 }
 
-/* Page transition effects */
+body.yes-page {
+  background: linear-gradient(135deg, #1a1040 0%, #2d1b69 30%, #4a2c82 60%, #6b3fa0 100%);
+}
+
+/* Page transition */
 body.page-enter {
-  animation: pageSlideIn 0.6s ease-out;
+  animation: pageSlideIn 0.7s ease-out;
 }
 
 @keyframes pageSlideIn {
-  from {
-    opacity: 0;
-    filter: blur(5px);
-  }
-  to {
-    opacity: 1;
-    filter: blur(0);
-  }
+  from { opacity: 0; filter: blur(8px); }
+  to { opacity: 1; filter: blur(0); }
 }
 
-/* Falling Flowers Animation */
-.flowers-container {
+@keyframes bg-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ==========================================================================
+   Falling Raindrops
+   ========================================================================== */
+.raindrops-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -46,38 +60,49 @@ body.page-enter {
   overflow: hidden;
 }
 
-.flower {
+.raindrop {
   position: absolute;
   top: -50px;
-  font-size: 30px;
-  animation: fall linear infinite;
+  font-size: 18px;
+  animation: rainFall linear infinite;
+  opacity: 0.5;
+  filter: grayscale(0.3);
+}
+
+@keyframes rainFall {
+  0% { opacity: 0; transform: translateY(0); }
+  10% { opacity: 0.5; }
+  90% { opacity: 0.5; }
+  100% { opacity: 0; transform: translateY(100vh); }
+}
+
+.raindrop:nth-child(1)  { left: 5%;  animation-duration: 4s;   animation-delay: 0s; }
+.raindrop:nth-child(2)  { left: 12%; animation-duration: 5.5s; animation-delay: 1s; }
+.raindrop:nth-child(3)  { left: 20%; animation-duration: 3.8s; animation-delay: 2s; }
+.raindrop:nth-child(4)  { left: 28%; animation-duration: 5s;   animation-delay: 0.5s; }
+.raindrop:nth-child(5)  { left: 35%; animation-duration: 6s;   animation-delay: 1.5s; }
+.raindrop:nth-child(6)  { left: 43%; animation-duration: 4.5s; animation-delay: 2.5s; }
+.raindrop:nth-child(7)  { left: 50%; animation-duration: 5.2s; animation-delay: 0.8s; }
+.raindrop:nth-child(8)  { left: 58%; animation-duration: 4.2s; animation-delay: 1.8s; }
+.raindrop:nth-child(9)  { left: 65%; animation-duration: 5.8s; animation-delay: 0.3s; }
+.raindrop:nth-child(10) { left: 72%; animation-duration: 4.8s; animation-delay: 2.2s; }
+.raindrop:nth-child(11) { left: 78%; animation-duration: 5.1s; animation-delay: 1.2s; }
+.raindrop:nth-child(12) { left: 85%; animation-duration: 4.3s; animation-delay: 0.6s; }
+.raindrop:nth-child(13) { left: 90%; animation-duration: 5.5s; animation-delay: 1.7s; }
+.raindrop:nth-child(14) { left: 95%; animation-duration: 4.6s; animation-delay: 2.8s; }
+.raindrop:nth-child(15) { left: 15%; animation-duration: 5.3s; animation-delay: 0.4s; }
+
+/* Celebrate mode — change to flowers */
+.raindrops-container.celebrate .raindrop {
+  filter: none;
   opacity: 0.8;
+  font-size: 28px;
 }
 
-@keyframes fall {
-  to {
-    transform: translateY(100vh) rotate(360deg);
-  }
-}
-
-.flower:nth-child(1) { left: 5%; animation-duration: 8s; animation-delay: 0s; }
-.flower:nth-child(2) { left: 12%; animation-duration: 10s; animation-delay: 1s; }
-.flower:nth-child(3) { left: 20%; animation-duration: 7s; animation-delay: 2s; }
-.flower:nth-child(4) { left: 28%; animation-duration: 9s; animation-delay: 0.5s; }
-.flower:nth-child(5) { left: 35%; animation-duration: 11s; animation-delay: 1.5s; }
-.flower:nth-child(6) { left: 43%; animation-duration: 8.5s; animation-delay: 2.5s; }
-.flower:nth-child(7) { left: 50%; animation-duration: 9.5s; animation-delay: 0.8s; }
-.flower:nth-child(8) { left: 58%; animation-duration: 7.5s; animation-delay: 1.8s; }
-.flower:nth-child(9) { left: 65%; animation-duration: 10.5s; animation-delay: 0.3s; }
-.flower:nth-child(10) { left: 72%; animation-duration: 8.8s; animation-delay: 2.2s; }
-.flower:nth-child(11) { left: 78%; animation-duration: 9.2s; animation-delay: 1.2s; }
-.flower:nth-child(12) { left: 85%; animation-duration: 7.8s; animation-delay: 0.6s; }
-.flower:nth-child(13) { left: 90%; animation-duration: 10.2s; animation-delay: 1.7s; }
-.flower:nth-child(14) { left: 95%; animation-duration: 8.3s; animation-delay: 2.8s; }
-.flower:nth-child(15) { left: 15%; animation-duration: 9.7s; animation-delay: 0.4s; }
-
-/* Floating Hearts */
-.hearts-container {
+/* ==========================================================================
+   Soft Glowing Lights (Fireflies)
+   ========================================================================== */
+.softglow-container {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -88,38 +113,39 @@ body.page-enter {
   overflow: hidden;
 }
 
-.heart {
+.softglow {
   position: absolute;
   bottom: -50px;
+  font-size: 20px;
+  animation: floatUp 12s ease-in infinite;
+  opacity: 0.5;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.5; }
+  90% { opacity: 0.5; }
+  100% { transform: translateY(-100vh) rotate(180deg); opacity: 0; }
+}
+
+.softglow:nth-child(1) { left: 15%; animation-delay: 0s;  animation-duration: 10s; }
+.softglow:nth-child(2) { left: 35%; animation-delay: 2s;  animation-duration: 12s; }
+.softglow:nth-child(3) { left: 55%; animation-delay: 4s;  animation-duration: 11s; }
+.softglow:nth-child(4) { left: 75%; animation-delay: 1s;  animation-duration: 13s; }
+.softglow:nth-child(5) { left: 88%; animation-delay: 3s;  animation-duration: 10.5s; }
+.softglow:nth-child(6) { left: 25%; animation-delay: 1.5s; animation-duration: 9s; }
+.softglow:nth-child(7) { left: 60%; animation-delay: 2.5s; animation-duration: 11.5s; }
+.softglow:nth-child(8) { left: 45%; animation-delay: 0.8s; animation-duration: 10s; }
+
+/* Celebrate mode */
+.softglow-container.celebrate .softglow {
   font-size: 25px;
-  animation: float-up 12s ease-in infinite;
   opacity: 0.7;
 }
 
-@keyframes float-up {
-  0% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.7;
-  }
-  90% {
-    opacity: 0.7;
-  }
-  100% {
-    transform: translateY(-100vh) rotate(180deg);
-    opacity: 0;
-  }
-}
-
-.heart:nth-child(1) { left: 15%; animation-delay: 0s; animation-duration: 10s; }
-.heart:nth-child(2) { left: 35%; animation-delay: 2s; animation-duration: 12s; }
-.heart:nth-child(3) { left: 55%; animation-delay: 4s; animation-duration: 11s; }
-.heart:nth-child(4) { left: 75%; animation-delay: 1s; animation-duration: 13s; }
-.heart:nth-child(5) { left: 88%; animation-delay: 3s; animation-duration: 10.5s; }
-
-/* Sparkles for Yes Page */
+/* ==========================================================================
+   Sparkles (Forgiveness / Yes Page)
+   ========================================================================== */
 .sparkles-container {
   position: fixed;
   top: 0;
@@ -142,55 +168,38 @@ body.page-enter {
   50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
 }
 
-.sparkle:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
+.sparkle:nth-child(1) { top: 15%; left: 10%;  animation-delay: 0s; }
 .sparkle:nth-child(2) { top: 25%; right: 15%; animation-delay: 0.5s; }
 .sparkle:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 1s; }
 .sparkle:nth-child(4) { top: 60%; right: 25%; animation-delay: 0.3s; }
 .sparkle:nth-child(5) { bottom: 20%; right: 10%; animation-delay: 0.7s; }
 .sparkle:nth-child(6) { top: 40%; left: 15%; animation-delay: 1.2s; }
 
-/* More flowers for celebration */
-.flowers-container.celebrate .flower:nth-child(n+16) {
-  animation-duration: 6s;
-  font-size: 35px;
-}
-.celebrate .flower:nth-child(16) { left: 8%; animation-delay: 0.2s; }
-.celebrate .flower:nth-child(17) { left: 45%; animation-delay: 1.3s; }
-.celebrate .flower:nth-child(18) { left: 68%; animation-delay: 0.9s; }
-.celebrate .flower:nth-child(19) { left: 82%; animation-delay: 1.6s; }
-.celebrate .flower:nth-child(20) { left: 25%; animation-delay: 2.1s; }
-
-/* More hearts for celebration */
-.hearts-container.celebrate .heart:nth-child(n+6) {
-  animation-duration: 9s;
-  font-size: 30px;
-}
-.celebrate .heart:nth-child(6) { left: 25%; animation-delay: 1.5s; }
-.celebrate .heart:nth-child(7) { left: 60%; animation-delay: 2.5s; }
-.celebrate .heart:nth-child(8) { left: 45%; animation-delay: 0.8s; }
-
+/* ==========================================================================
+   Main Container (Card)
+   ========================================================================== */
 .container {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  padding: 40px 30px;
-  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.93);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  padding: 45px 35px;
+  border-radius: 28px;
   text-align: center;
   width: 100%;
-  max-width: 450px;
+  max-width: 480px;
   box-shadow: 
-    0 20px 60px rgba(255, 107, 107, 0.4),
-    0 10px 30px rgba(255, 182, 193, 0.3),
+    0 25px 60px rgba(42, 27, 84, 0.5),
+    0 10px 30px rgba(124, 92, 191, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.8),
-    0 0 0 1px rgba(255, 182, 193, 0.2);
+    0 0 0 1px rgba(147, 130, 220, 0.2);
   position: relative;
   z-index: 10;
   animation: cardFlip 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  border: 3px solid rgba(255, 182, 193, 0.4);
+  border: 2px solid rgba(147, 130, 220, 0.3);
   transform-style: preserve-3d;
   perspective: 1000px;
 }
 
-/* Card flip animation entrance */
 @keyframes cardFlip {
   0% {
     opacity: 0;
@@ -202,7 +211,6 @@ body.page-enter {
   }
 }
 
-/* Card flip animation exit */
 @keyframes cardFlipOut {
   0% {
     opacity: 1;
@@ -214,7 +222,7 @@ body.page-enter {
   }
 }
 
-/* 3D Card depth effect */
+/* Subtle inner glow */
 .container::before {
   content: '';
   position: absolute;
@@ -222,39 +230,26 @@ body.page-enter {
   left: 10px;
   right: 10px;
   bottom: 10px;
-  border-radius: 25px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 182, 193, 0.05));
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(147, 130, 220, 0.03), rgba(255, 255, 255, 0.05));
   z-index: -1;
   pointer-events: none;
 }
 
-/* Card shadow depth */
-.container::after {
-  content: '';
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  right: 5px;
-  bottom: 5px;
-  border-radius: 28px;
-  background: linear-gradient(145deg, rgba(255, 240, 245, 0.05), rgba(255, 255, 255, 0.02));
-  z-index: -1;
-  pointer-events: none;
-}
-
+/* Celebrate variant (forgiveness accepted) */
 .container.celebrate-box {
-  background: linear-gradient(135deg, rgba(255, 240, 245, 0.98) 0%, rgba(255, 255, 255, 0.98) 100%);
+  background: linear-gradient(135deg, rgba(255, 252, 240, 0.98) 0%, rgba(255, 255, 255, 0.98) 100%);
   box-shadow: 
-    0 25px 80px rgba(255, 107, 107, 0.6),
-    0 15px 40px rgba(255, 182, 193, 0.5),
-    0 0 100px rgba(255, 105, 180, 0.3),
+    0 25px 80px rgba(212, 163, 115, 0.4),
+    0 15px 40px rgba(255, 193, 7, 0.3),
+    0 0 100px rgba(255, 193, 7, 0.15),
     inset 0 2px 0 rgba(255, 255, 255, 0.9);
-  animation: celebrateCardFlip 1s cubic-bezier(0.68, -0.55, 0.265, 1.55), celebrate-pulse 2s ease-in-out infinite 1s;
-  border: 4px solid rgba(255, 105, 180, 0.5);
+  animation: celebrateFlip 1s cubic-bezier(0.68, -0.55, 0.265, 1.55), celebrate-pulse 2s ease-in-out infinite 1s;
+  border: 3px solid rgba(255, 193, 7, 0.4);
   transform-style: preserve-3d;
 }
 
-@keyframes celebrateCardFlip {
+@keyframes celebrateFlip {
   0% {
     opacity: 0;
     transform: perspective(1000px) rotateY(180deg) scale(0.8);
@@ -270,18 +265,21 @@ body.page-enter {
   50% { transform: scale(1.02); }
 }
 
+/* ==========================================================================
+   Typography
+   ========================================================================== */
 h1 {
-  font-size: clamp(1.5rem, 5vw, 2rem);
-  margin: 15px 0 10px;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 5vw, 2.2rem);
+  margin: 15px 0 12px;
   line-height: 1.3;
-  background: linear-gradient(135deg, #ff6b6b, #ff8e53, #ff6b6b);
-  background-size: 200% 200%;
+  background: linear-gradient(135deg, #2a1b54, #7c5cbf, #d4a373, #2a1b54);
+  background-size: 300% 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-shift 3s ease infinite;
-  font-weight: 800;
-  text-shadow: 0 2px 10px rgba(255, 107, 107, 0.2);
+  animation: gradient-shift 4s ease infinite;
+  font-weight: 700;
 }
 
 @keyframes gradient-shift {
@@ -290,29 +288,36 @@ h1 {
 }
 
 p {
-  font-size: clamp(1rem, 3.5vw, 1.2rem);
-  margin-bottom: 20px;
-  line-height: 1.5;
-  color: #555;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1rem, 3.5vw, 1.15rem);
+  margin-bottom: 15px;
+  line-height: 1.7;
+  color: #4a4a6a;
   font-weight: 500;
 }
 
+/* ==========================================================================
+   GIF Images
+   ========================================================================== */
 .gif {
-  width: 240px;
+  width: 220px;
   max-width: 100%;
   height: auto;
   margin-bottom: 20px;
-  border-radius: 20px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25), 0 4px 10px rgba(255, 107, 107, 0.3);
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(42, 27, 84, 0.3), 0 4px 10px rgba(124, 92, 191, 0.2);
   transition: transform 0.3s ease;
-  border: 4px solid rgba(255, 182, 193, 0.6);
+  border: 3px solid rgba(147, 130, 220, 0.4);
 }
 
 .gif:hover {
   transform: scale(1.05) rotate(2deg);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3), 0 6px 15px rgba(255, 107, 107, 0.4);
+  box-shadow: 0 12px 35px rgba(42, 27, 84, 0.4), 0 6px 15px rgba(124, 92, 191, 0.3);
 }
 
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
 .btn {
   position: relative;
   display: flex;
@@ -324,8 +329,8 @@ p {
 
 .btn a {
   text-decoration: none;
-  padding: 12px 30px;
-  background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+  padding: 13px 30px;
+  background: linear-gradient(135deg, #4a3f8a, #7c5cbf);
   color: #fff;
   border-radius: 30px;
   font-weight: bold;
@@ -334,9 +339,10 @@ p {
   min-width: 100px;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+  box-shadow: 0 4px 15px rgba(74, 63, 138, 0.4);
   position: relative;
   overflow: hidden;
+  font-family: 'Inter', sans-serif;
 }
 
 .btn a::before {
@@ -356,38 +362,105 @@ p {
 
 .btn a:hover,
 .btn a:active {
-  background: linear-gradient(135deg, #ff5252, #ff7043);
+  background: linear-gradient(135deg, #3a2f7a, #6b4caf);
   transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+  box-shadow: 0 6px 20px rgba(74, 63, 138, 0.6);
 }
 
 .btn a:active {
   transform: translateY(-1px) scale(1.02);
 }
 
-/* Love Message Styling */
-.love-message {
+/* ==========================================================================
+   Apology Letter Section
+   ========================================================================== */
+.apology-letter {
   margin-top: 25px;
-  padding: 20px;
-  background: linear-gradient(135deg, rgba(255, 182, 193, 0.2), rgba(255, 240, 245, 0.3));
-  border-radius: 15px;
-  border: 2px dashed rgba(255, 105, 180, 0.3);
-  animation: message-glow 3s ease-in-out infinite;
+  padding: 25px;
+  background: linear-gradient(135deg, rgba(245, 240, 255, 0.6), rgba(255, 250, 245, 0.4));
+  border-radius: 18px;
+  border-left: 4px solid rgba(147, 130, 220, 0.6);
+  animation: letter-glow 4s ease-in-out infinite;
+  text-align: left;
 }
 
-@keyframes message-glow {
+@keyframes letter-glow {
   0%, 100% { 
-    box-shadow: 0 0 10px rgba(255, 105, 180, 0.2);
+    box-shadow: 0 0 10px rgba(124, 92, 191, 0.15);
   }
   50% { 
-    box-shadow: 0 0 20px rgba(255, 105, 180, 0.4), 0 0 30px rgba(255, 182, 193, 0.3);
+    box-shadow: 0 0 25px rgba(124, 92, 191, 0.3), 0 0 35px rgba(147, 130, 220, 0.15);
+  }
+}
+
+.letter-text {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.92rem, 3vw, 1.05rem);
+  color: #3a3a5a;
+  line-height: 1.8;
+  font-style: italic;
+  margin-bottom: 15px;
+}
+
+.letter-text:last-child {
+  margin-bottom: 0;
+}
+
+.signature {
+  text-align: right;
+  color: #7c5cbf;
+  font-weight: 700;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  margin-top: 15px;
+}
+
+/* ==========================================================================
+   Promise Box
+   ========================================================================== */
+.promise-box {
+  margin-top: 25px;
+  padding: 25px;
+  background: linear-gradient(135deg, rgba(255, 250, 240, 0.7), rgba(255, 245, 230, 0.5));
+  border-radius: 18px;
+  border: 2px dashed rgba(212, 163, 115, 0.5);
+  animation: promise-glow 3s ease-in-out infinite;
+}
+
+@keyframes promise-glow {
+  0%, 100% { 
+    box-shadow: 0 0 10px rgba(212, 163, 115, 0.2);
+  }
+  50% { 
+    box-shadow: 0 0 25px rgba(212, 163, 115, 0.4), 0 0 35px rgba(255, 193, 7, 0.15);
+  }
+}
+
+/* ==========================================================================
+   Forgiveness Message (Yes Page)
+   ========================================================================== */
+.forgiveness-message {
+  margin-top: 25px;
+  padding: 22px;
+  background: linear-gradient(135deg, rgba(255, 248, 220, 0.7), rgba(255, 235, 205, 0.5));
+  border-radius: 15px;
+  border: 2px dashed rgba(218, 165, 32, 0.4);
+  animation: forgiveness-glow 3s ease-in-out infinite;
+}
+
+@keyframes forgiveness-glow {
+  0%, 100% { 
+    box-shadow: 0 0 10px rgba(255, 193, 7, 0.2);
+  }
+  50% { 
+    box-shadow: 0 0 20px rgba(255, 193, 7, 0.4), 0 0 30px rgba(218, 165, 32, 0.2);
   }
 }
 
 .quote {
   font-size: clamp(0.95rem, 3vw, 1.1rem);
   font-style: italic;
-  color: #d63384;
+  color: #5a4a8a;
   margin-bottom: 10px;
   line-height: 1.6;
   font-weight: 600;
@@ -395,13 +468,16 @@ p {
 
 .signed {
   font-size: clamp(0.85rem, 2.5vw, 1rem);
-  color: #ff6b6b;
+  color: #7c5cbf;
   font-weight: 700;
   margin-top: 8px;
   text-align: right;
+  font-family: 'Playfair Display', serif;
 }
 
-/* Love Note with Heartbeat */
+/* ==========================================================================
+   Heartbeat & Love Note
+   ========================================================================== */
 .love-note {
   margin: 15px 0;
   text-align: center;
@@ -411,38 +487,77 @@ p {
   display: inline-block;
   font-size: 40px;
   animation: heartbeat 1.5s ease-in-out infinite;
-  filter: drop-shadow(0 0 10px rgba(255, 105, 180, 0.6));
+  filter: drop-shadow(0 0 10px rgba(124, 92, 191, 0.5));
 }
 
 @keyframes heartbeat {
-  0%, 100% { 
-    transform: scale(1);
-  }
-  10%, 30% { 
-    transform: scale(1.2);
-  }
-  20%, 40% { 
-    transform: scale(1.1);
+  0%, 100% { transform: scale(1); }
+  10%, 30% { transform: scale(1.2); }
+  20%, 40% { transform: scale(1.1); }
+}
+
+/* ==========================================================================
+   Fade-in-up Animation
+   ========================================================================== */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/* Mobile Optimization */
+.fade-in-up:nth-child(1) { animation-delay: 0.3s; }
+.fade-in-up:nth-child(2) { animation-delay: 0.6s; }
+.fade-in-up:nth-child(3) { animation-delay: 0.9s; }
+.fade-in-up:nth-child(4) { animation-delay: 1.2s; }
+.fade-in-up:nth-child(5) { animation-delay: 1.5s; }
+
+/* ==========================================================================
+   Typewriter
+   ========================================================================== */
+.typewriter {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid #7c5cbf;
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+  display: inline-block;
+  max-width: 100%;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: #7c5cbf; }
+}
+
+/* ==========================================================================
+   Mobile Optimization
+   ========================================================================== */
 @media screen and (max-width: 480px) {
   body {
     padding: 10px;
   }
   
-  /* Reduce flowers on mobile for performance */
-  .flower {
-    font-size: 25px;
+  .raindrop {
+    font-size: 14px;
   }
   
-  .flower:nth-child(n+11) {
+  .raindrop:nth-child(n+11) {
     display: none;
   }
   
-  .heart {
-    font-size: 20px;
+  .softglow {
+    font-size: 16px;
   }
   
   .sparkle {
@@ -456,18 +571,18 @@ p {
   }
   
   .gif {
-    width: 200px;
+    width: 180px;
     margin-bottom: 15px;
   }
   
   h1 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     margin: 12px 0 8px;
   }
   
   p {
     font-size: 1rem;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
   }
   
   .love-note {
@@ -478,9 +593,19 @@ p {
     font-size: 35px;
   }
   
-  .love-message {
+  .apology-letter {
     margin-top: 20px;
-    padding: 15px;
+    padding: 18px;
+  }
+  
+  .promise-box {
+    margin-top: 18px;
+    padding: 18px;
+  }
+  
+  .forgiveness-message {
+    margin-top: 18px;
+    padding: 16px;
   }
   
   .quote {
@@ -497,7 +622,7 @@ p {
   }
   
   .btn a {
-    padding: 10px 25px;
+    padding: 10px 22px;
     font-size: 0.95rem;
     min-width: 90px;
   }
@@ -505,12 +630,12 @@ p {
 
 /* Extra small devices */
 @media screen and (max-width: 375px) {
-  .flower {
-    font-size: 22px;
+  .raindrop {
+    font-size: 12px;
   }
   
-  .heart {
-    font-size: 18px;
+  .softglow {
+    font-size: 14px;
   }
   
   .container {
@@ -518,7 +643,7 @@ p {
   }
   
   .gif {
-    width: 170px;
+    width: 160px;
   }
   
   h1 {
@@ -533,7 +658,15 @@ p {
     font-size: 30px;
   }
   
-  .love-message {
+  .apology-letter {
+    padding: 14px;
+  }
+  
+  .promise-box {
+    padding: 14px;
+  }
+  
+  .forgiveness-message {
     padding: 12px;
   }
   
@@ -550,7 +683,7 @@ p {
   }
   
   .btn a {
-    padding: 10px 20px;
+    padding: 10px 18px;
     font-size: 0.9rem;
     min-width: 80px;
   }
@@ -561,14 +694,15 @@ p {
   body {
     min-height: auto;
     padding: 10px;
+    align-items: flex-start;
   }
   
-  .flower {
-    font-size: 20px;
+  .raindrop {
+    font-size: 12px;
   }
   
-  .heart {
-    font-size: 18px;
+  .softglow {
+    font-size: 14px;
   }
   
   .sparkle {
@@ -603,7 +737,17 @@ p {
     font-size: 28px;
   }
   
-  .love-message {
+  .apology-letter {
+    margin-top: 12px;
+    padding: 12px;
+  }
+  
+  .promise-box {
+    margin-top: 12px;
+    padding: 12px;
+  }
+  
+  .forgiveness-message {
     margin-top: 12px;
     padding: 10px;
   }

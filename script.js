@@ -1,15 +1,4 @@
-// Redirect to index on page refresh (except for index.html itself)
-(function() {
-  const currentPage = window.location.pathname.split('/').pop();
-  const isRefresh = performance.navigation.type === 1 || 
-                    (performance.getEntriesByType('navigation')[0] && 
-                     performance.getEntriesByType('navigation')[0].type === 'reload');
-  
-  // If it's a refresh and not on index page, redirect to index
-  if (isRefresh && currentPage !== 'index.html' && currentPage !== '') {
-    window.location.href = 'index.html';
-  }
-})();
+// No redirect on refresh — let users stay on the page they're viewing
 
 // Add page enter animation on load
 document.addEventListener('DOMContentLoaded', function() {
@@ -39,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// Button movement functionality
+// Button movement functionality (for the dodging "No" button on no3.html)
 const btn = document.getElementById("move-random");
 
 if (btn) {
@@ -90,7 +79,7 @@ document.querySelectorAll('.btn a').forEach(button => {
     const x = rect.left + rect.width / 2;
     const y = rect.top + rect.height / 2;
     
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 12; i++) {
       createParticle(x, y);
     }
   });
@@ -104,11 +93,16 @@ function createParticle(x, y) {
   particle.style.width = '10px';
   particle.style.height = '10px';
   particle.style.borderRadius = '50%';
-  particle.style.background = '#ff6b6b';
   particle.style.pointerEvents = 'none';
   particle.style.zIndex = '9999';
-  particle.innerHTML = '❤️';
-  particle.style.fontSize = '12px';
+  
+  // Use different emojis based on the page
+  const isYesPage = document.body.classList.contains('yes-page');
+  const emojis = isYesPage 
+    ? ['✨', '💛', '🌟', '💖', '⭐'] 
+    : ['💧', '🙏', '💜', '✨', '🕯️'];
+  particle.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+  particle.style.fontSize = '14px';
   
   document.body.appendChild(particle);
   
@@ -148,11 +142,30 @@ window.addEventListener('load', () => {
     container.style.transform = 'translateY(30px)';
     
     setTimeout(() => {
-      container.style.transition = 'all 0.6s ease-out';
+      container.style.transition = 'all 0.8s cubic-bezier(0.22, 1, 0.36, 1)';
       container.style.opacity = '1';
       container.style.transform = 'translateY(0)';
     }, 100);
   }
 });
 
+// Intersection Observer for fade-in-up elements (lazy animation trigger)
+document.addEventListener('DOMContentLoaded', () => {
+  const fadeElements = document.querySelectorAll('.fade-in-up');
+  
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
 
+    fadeElements.forEach(el => {
+      el.style.animationPlayState = 'paused';
+      observer.observe(el);
+    });
+  }
+});
